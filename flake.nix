@@ -2,9 +2,10 @@
   description = "A nixvim configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixvim = {
-      url = "github:nix-community/nixvim/main";
+      url = "github:nix-community/nixvim/nixos-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     flake-parts.url = "github:hercules-ci/flake-parts";
@@ -50,6 +51,7 @@
       }: let
         nixvimLib = nixvim.lib.${system};
         nixvim' = nixvim.legacyPackages.${system};
+        pkgs-unstable = import inputs.nixpkgs-unstable {system = "x86_64-linux";};
         nixvimModule = {
           inherit pkgs;
           module = import ./config;
@@ -57,7 +59,7 @@
 
           # You can use `extraSpecialArgs` to pass additional arguments to your module files
           extraSpecialArgs = {
-            inherit inputs pkgs;
+            inherit inputs pkgs pkgs-unstable;
           };
         };
         nvim = nixvim'.makeNixvimWithModule nixvimModule;

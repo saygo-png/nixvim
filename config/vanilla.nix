@@ -802,25 +802,25 @@
       settings.auto_close = true;
     };
 
-    treesitter = {
-      enable = true;
-      indent = true;
-      folding = true;
-      nixvimInjections = true;
-      ensureInstalled = ["all"];
-      ignoreInstall = ["comment"];
-      moduleConfig.highlight.enable = true;
-      nixGrammars = true; # Install grammars with Nix
-      settings.incremental_selection = {
-        enable = true;
-        keymaps = {
-          scope_incremental = "gsi";
-          node_decremental = "<BS>";
-          node_incremental = "<Enter>";
-          init_selection = "<Enter>";
-        };
-      };
-    };
+   treesitter = {
+          enable = true;
+          indent = true;
+          folding = true;
+          nixvimInjections = true;
+          ensureInstalled = ["all"];
+          ignoreInstall = ["comment"];
+          moduleConfig.highlight.enable = true;
+          nixGrammars = true; # Install grammars with Nix
+          incrementalSelection = {
+            enable = true;
+            keymaps = {
+              scopeIncremental = "gsi";
+              nodeDecremental = "<BS>";
+              nodeIncremental = "<Enter>";
+              initSelection = "<Enter>";
+            };
+          };
+        }; 
 
     treesitter-textobjects = {
       enable = true;
@@ -914,6 +914,7 @@
         };
         denols = {
           enable = true;
+          package = pkgs-unstable.deno;
           rootDir = ''
             function (filename, bufnr)
               local util = require 'lspconfig.util'
