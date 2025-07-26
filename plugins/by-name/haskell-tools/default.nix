@@ -15,8 +15,14 @@ lib.nixvim.plugins.mkNeovimPlugin {
     bar.__raw = "function() print('hello') end";
   };
 
+  extraOptions = {
+    enableTelescope = lib.mkEnableOption "telescope integration";
+  };
+
   extraConfig = cfg: {
     globals.haskell_tools = cfg.settings;
+
+    plugins.telescope.enabledExtensions = lib.mkIf cfg.enableTelescope [ "ht" ];
 
     warnings =
       let
