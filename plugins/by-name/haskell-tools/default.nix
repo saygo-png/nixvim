@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, config, ... }:
 lib.nixvim.plugins.mkNeovimPlugin {
   name = "haskell-tools";
   packPathName = "haskell-tools.nvim";
@@ -20,7 +20,7 @@ lib.nixvim.plugins.mkNeovimPlugin {
 
     warnings =
       let
-        hlsEnabled = cfg.plugins.lsp.servers.hls.enable == true;
+        hlsEnabled = config.lsp.servers.hls.enable || config.plugins.lsp.servers.hls.enable == true;
       in
       lib.nixvim.mkWarnings "plugins.haskell-tools" [
         {
