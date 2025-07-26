@@ -20,7 +20,7 @@ lib.nixvim.plugins.mkNeovimPlugin {
 
     warnings =
       let
-        hlsEnabled = cfg.lsp.servers.hls.enable || cfg.plugins.lsp.servers.hls.enable == true;
+        hlsEnabled = cfg.plugins.lsp.servers.hls.enable == true;
       in
       lib.nixvim.mkWarnings "plugins.haskell-tools" [
         {
